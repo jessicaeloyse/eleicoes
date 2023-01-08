@@ -69,7 +69,7 @@ def transformacoes(df):
 
     regioes = {
         "NORTE": ("AC", "AP", "AM", "PA", "RO", "RR", "TO"),
-        "NORDESTE": ("AL", "BA", "CE", "MA", "PB", "RR", "PE", "PI", "RN", "SE"),
+        "NORDESTE": ("AL", "BA", "CE", "MA", "PB", "PE", "PI", "RN", "SE"),
         "CENTRO-OESTE": ("DF", "GO", "MT", "MS"),
         "SUDESTE": ("ES", "SP", "RJ", "MG"),
         "SUL": ("PR", "RS", "SC"),
