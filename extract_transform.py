@@ -130,42 +130,4 @@ def agrupamentos(df_turno):
 
         df_turno = pd.merge(left=df_turno, right=df_vencedor, how="left", on=col)
 
-        return df_turno
-
-
-def main():
-    pastas_setup()
-
-    for ano in 2022, 2018:
-        df = download_arquivo_to_df(ano)
-
-        df = transformacoes(df)
-
-        for turno in 1, 2:
-            logging.info(f"{turno}º turno")
-
-            df_turno = df.loc[lambda df: df["NR_TURNO"] == turno]
-            df_turno = df_turno[
-                [
-                    "SG_UF",
-                    "NM_UE",
-                    "NM_MUNICIPIO",
-                    "REGIAO",
-                    "NR_VOTAVEL",
-                    "NM_VOTAVEL",
-                    "QT_VOTOS",
-                ]
-            ]
-
-            df_turno = agrupamentos(df_turno)
-
-            csv_path = (
-                f"./arquivos/{'primeiro' if turno == 1 else 'segundo'}_turno_{ano}.csv"
-            )
-
-            df_turno.to_csv(csv_path, index=False)
-            logging.info(f"Arquivo salvo em: {csv_path}")
-
-
-if __name__ == "__main__":
-    main()
+    return df_turno
