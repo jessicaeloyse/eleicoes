@@ -41,31 +41,44 @@ def download_arquivo_to_df(ano):
     logging.debug(f"Lendo arquivo {nome_arquivo_full}")
     return pd.read_csv(nome_arquivo_full, sep=";", encoding="latin-1")
 
+def substitui_nomes(df, contem, coluna, novo_valor):
+    df.loc[df[coluna].str.contains(contem), coluna] = novo_valor
+    return df
 
 def transformacoes(df):
     rename_values = [
         "LULA",
         "BOLSONARO",
         "HADDAD",
-        "CIRO",
-        "TEBET",
         "BOULOS",
-        "DACIOLO",
         "AMOEDO",
-        "MARINA",
-        "KELMON",
-        "THRONICKE",
         "D AVILA",
         "VERA LUCIA",
-        "MANZANO",
+        "MEIRELLES",
+        "ALCKMIN",
+        "EYMAEL",
+        "VOTO ANULADO"
     ]
+
+    dict_names = {"CIRO": "CIRO GOMES",
+                  "DACIOLO": "CABO DACIOLO",
+                  "MARINA": "MARINA SILVA",
+                  "KELMON": "PADRE KELMON",
+                  "ALVARO": "ALVARO DIAS",
+                  "PÉRICLES": "LEO PERICLES",
+                  "TEBET": "SIMONE TEBET",
+                  "THRONICKE": "SORAYA THRONICKE",
+                  "MANZANO": "SOFIA MANZANO"}
 
     col = "NM_VOTAVEL"
 
     logging.debug("Tratando nomes dos candidatos")
 
     for nome in rename_values:
-        df.loc[df[col].str.contains(nome), col] = nome
+        df = substitui_nomes(df, nome, col, nome)
+
+    for contem, novo_valor in dict_names.items():
+        df = substitui_nomes(df, contem, col, novo_valor)
 
     regioes = {
         "NORTE": ("AC", "AP", "AM", "PA", "RO", "RR", "TO"),
