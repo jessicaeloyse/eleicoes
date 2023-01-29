@@ -1,9 +1,16 @@
-from extract_transform import *
-from load import *
+import logging
+from extract_transform import (
+    pastas_setup,
+    transformacoes,
+    download_arquivo_to_df,
+    agrupamentos,
+)
+from load import get_spreadsheet, get_aba, clear_and_load_df
 
 logging.basicConfig(
     format="[%(asctime)s] %(message)s", datefmt="%Y-%m-%d %H:%M:%S", level=logging.DEBUG
 )
+
 
 def main():
     pastas_setup()
@@ -42,7 +49,6 @@ def main():
             clear_and_load_df(df_turno, aba)
 
             df_dict[nome_aba] = df_turno
-
 
 
 if __name__ == "__main__":
